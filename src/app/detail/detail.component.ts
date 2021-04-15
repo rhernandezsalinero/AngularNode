@@ -46,14 +46,28 @@ export class DetailComponent implements OnInit {
     );
   }
 
+  saveSerie(name: string, type: string) {
+    const serie: Serie = new Serie()
+    serie.name = name
+    serie.type = type
+    this.seriesService.saveSerie(serie).subscribe(data => {
+      console.log(data)
+    },
+      error => {
+        console.log("Error:", error);
+      }
+    );
+  }
+
   updateSerie(name: string, type: string) {
     const serie: Serie = new Serie()
     serie._id = this.idSearch
     serie.name = name
     serie.type = type
-    serie.platform = ""
+    serie.platform = "6059cfd59486848b0b6d2d94"
     this.seriesService.updateSerie(serie).subscribe(data => {
-      console.log(data)
+      this.serie = data
+      console.log(this.serie)
     },
       error => {
         console.log("Error:", error);

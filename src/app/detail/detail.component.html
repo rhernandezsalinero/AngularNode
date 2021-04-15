@@ -1,8 +1,8 @@
 <div class="container" *ngIf="viewFormAdd">
   <div class="row">
-    <input type="text" placeholder="Nombre">
-    <input type="text" placeholder="Tipo">
-    <button class="btn btn-success" value="Añadir">Añadir</button>
+    <input type="text" placeholder="Nombre" #name>
+    <input type="text" placeholder="Tipo" #type>
+    <button class="btn btn-success" (click)="saveSerie(name.value, type.value)" value="Añadir">Añadir</button>
   </div>
 </div>
 
