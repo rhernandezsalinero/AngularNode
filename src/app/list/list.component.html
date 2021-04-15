@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col box-Search">
+      <form action="">
+        <input type="text" id="" name="search" placeholder="Nombre de serie" (keydown.enter)="setFiltro(name.value)"
+          #name>
+        <input type="button" (click)="setFiltro(name.value)" value="Buscar">
+      </form>
+    </div>
+  </div>
+  <hr>
+  <div class="container">
+    <button type="button" (click)="newSerie()">Añadir</button>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of series">
+          <td><a [routerLink]="['/detail/' + item._id]">{{item.name}}</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
