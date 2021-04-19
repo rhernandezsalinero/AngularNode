@@ -19,19 +19,18 @@ export class DetailComponent implements OnInit {
       if (route instanceof NavigationEnd) {
         if (route.url.includes("new")) {
           this.viewFormAdd = true
+        }else{
+          this.activateRoute.params.subscribe(value => {
+            this.idSearch = value.id
+            if (this.idSearch != "new")
+              this.getSerie()
+          })
         }
       }
     })
   }
 
   ngOnInit() {
-
-    this.activateRoute.params.subscribe(value => {
-      this.idSearch = value.id
-      if (this.idSearch != "new")
-        this.getSerie()
-    })
-
 
   }
 
@@ -60,14 +59,13 @@ export class DetailComponent implements OnInit {
   }
 
   updateSerie(name: string, type: string) {
-    const serie: Serie = new Serie()
-    serie._id = this.idSearch
-    serie.name = name
-    serie.type = type
-    serie.platform = "6059cfd59486848b0b6d2d94"
-    this.seriesService.updateSerie(serie).subscribe(data => {
-      this.serie = data
-      console.log(this.serie)
+
+    this.serie._id = this.idSearch
+    this.serie.name = name
+    this.serie.type = type
+    this.serie.platform = "6059cfd59486848b0b6d2d94"
+    this.seriesService.updateSerie(this.serie).subscribe(data => {
+      console.log(data)
     },
       error => {
         console.log("Error:", error);
@@ -78,6 +76,7 @@ export class DetailComponent implements OnInit {
   deleteSerie() {
     this.seriesService.deleteSerie(this.idSearch).subscribe(data => {
       console.log(data)
+      this.router.navigate(["/"])
     },
       error => {
         console.log("Error:", error);

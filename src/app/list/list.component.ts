@@ -16,6 +16,7 @@ export class ListComponent implements OnInit {
   constructor(private seriesService: SeriesService, private router: Router) { }
 
   ngOnInit() {
+    this.loadSeries("")
   }
 
   loadSeries(name: string) {
