@@ -2,6 +2,7 @@ import { Serie } from './../models/series.model';
 import { SeriesService } from './../services/series.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-detail',
@@ -14,12 +15,12 @@ export class DetailComponent implements OnInit {
   idSearch: string = ""
   serie: Serie = new Serie()
 
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private seriesService: SeriesService) {
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private seriesService: SeriesService, private location: Location) {
     this.router.events.subscribe(route => {
       if (route instanceof NavigationEnd) {
         if (route.url.includes("new")) {
           this.viewFormAdd = true
-        }else{
+        } else {
           this.activateRoute.params.subscribe(value => {
             this.idSearch = value.id
             if (this.idSearch != "new")
@@ -51,6 +52,8 @@ export class DetailComponent implements OnInit {
     serie.type = type
     this.seriesService.saveSerie(serie).subscribe(data => {
       console.log(data)
+      /* this.router.navigate(["/"]) */
+      this.location.back()
     },
       error => {
         console.log("Error:", error);
@@ -76,7 +79,8 @@ export class DetailComponent implements OnInit {
   deleteSerie() {
     this.seriesService.deleteSerie(this.idSearch).subscribe(data => {
       console.log(data)
-      this.router.navigate(["/"])
+      /* this.router.navigate(["/"]) */
+      this.location.back()
     },
       error => {
         console.log("Error:", error);
